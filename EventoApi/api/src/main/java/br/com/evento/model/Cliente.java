@@ -13,7 +13,23 @@ import jakarta.persistence.OneToOne;
 public class Cliente extends Pessoa {
     private String cpf;
     private LocalDate data_nascimento;
-
+    
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-    private List<Carrinho> carrinho;
+    private List<Compra> compras;
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public LocalDate getData_nascimento() {
+        return data_nascimento;
+    }
+
+    public void setData_nascimento(LocalDate data_nascimento) {
+        this.data_nascimento = data_nascimento;
+    }
 }

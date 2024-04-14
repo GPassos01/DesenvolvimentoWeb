@@ -39,4 +39,47 @@ public class Evento {
 
     @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL)
     private List<Ingresso> ingressos = new ArrayList<Ingresso>();
+
+    public String getNome() {
+        return nome;
+    }
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+    public String getDescricao() {
+        return descricao;
+    }
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    public LocalDate getData() {
+        return data;
+    }
+    public void setData(LocalDate data) {
+        this.data = data;
+    }
+    public LocalTime getHorario_inicio() {
+        return horario_inicio;
+    }
+    public void setHorario_inicio(LocalTime horario_inicio) {
+        this.horario_inicio = horario_inicio;
+    }
+    public LocalTime getHorario_fim() {
+        return horario_fim;
+    }
+    public void setHorario_fim(LocalTime horario_fim) {
+        this.horario_fim = horario_fim;
+    }
+    public EClassificacaoIndicativa getClassificacao_indicativa() {
+        return classificacao_indicativa;
+    }
+    public void setClassificacao_indicativa(EClassificacaoIndicativa classificacao_indicativa) {
+        this.classificacao_indicativa = classificacao_indicativa;
+    }
+    public Integer getLotacao_maxima() {
+        return lotacao_maxima;
+    }
+    public void setLotacao_maxima(Integer lotacao_maxima) {
+        this.lotacao_maxima = lotacao_maxima;
+    }
 }

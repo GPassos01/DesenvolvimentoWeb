@@ -13,4 +13,12 @@ public class Organizador extends Pessoa{
 
     @OneToMany(mappedBy = "organizador", cascade = CascadeType.ALL)
     private List<Evento> eventos = new ArrayList<Evento>();
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
 }
