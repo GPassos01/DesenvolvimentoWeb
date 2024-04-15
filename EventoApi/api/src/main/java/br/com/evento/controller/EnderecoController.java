@@ -26,10 +26,10 @@ public class EnderecoController {
         try{
             List<Endereco> list = (List<Endereco>)enderecoRepository.findAll();
 
-            return new ResponseEntity<>(list, HttpStatus.OK)
+            return new ResponseEntity<>(list, HttpStatus.OK);
         }
         catch(Exception ex){
-            return new ResponseEntity(body:"No such endereco", HttpStatus.NOT_FOUND)
+            return new ResponseEntity("No such endereco", HttpStatus.NOT_FOUND);
         }
     }
 }
