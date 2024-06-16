@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.evento.model.Endereco;
-import br.com.evento.repository.EnderecoRepository;
+import br.com.evento.model.Ingresso;
+import br.com.evento.repository.IngressoRepository;
 
 @RestController
-@RequestMapping(value = "/local")
-public class EnderecoController {
+@RequestMapping(value = "/ingresso")
+public class IngressoController {
 
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    private IngressoRepository ingressoRepository;
 
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> cadastrar(@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Ingresso> cadastrar(@RequestBody Ingresso ingresso){
+        Ingresso ingressoSalvo = ingressoRepository.save(ingresso);
 
-        return new ResponseEntity(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity(ingressoSalvo, HttpStatus.OK);
     }
 
     @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<List<Endereco>> getAll(){
+    public ResponseEntity<List<Ingresso>> getAll(){
         try{
-            List<Endereco> list = (List<Endereco>)enderecoRepository.findAll();
+            List<Ingresso> list = (List<Ingresso>)ingressoRepository.findAll();
 
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
         catch(Exception ex){
-            return new ResponseEntity("No such endereco", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No such ingresso", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> atualizar (@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Ingresso> atualizar (@RequestBody Ingresso ingresso){
+        Ingresso ingressoSalvo = ingressoRepository.save(ingresso);
 
-        return new ResponseEntity<Endereco>(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity<Ingresso>(ingressoSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public String apagar(@PathVariable(value = "id")Long id){
-        enderecoRepository.deleteById(id);
+        ingressoRepository.deleteById(id);
         
         return "ok";
     }

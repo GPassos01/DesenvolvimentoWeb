@@ -72,7 +72,6 @@ public class IndexController {
         return new ResponseEntity(usuario.get(), HttpStatus.OK);
     }
 
-    @SuppressWarnings("unchecked")
     @GetMapping(value = "/", produces = "application/json")
     public ResponseEntity<List<Usuario>> getAll(){
         try{

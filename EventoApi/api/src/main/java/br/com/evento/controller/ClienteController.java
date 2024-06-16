@@ -14,27 +14,27 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.evento.model.Endereco;
-import br.com.evento.repository.EnderecoRepository;
+import br.com.evento.model.Cliente;
+import br.com.evento.repository.ClienteRepository;
 
 @RestController
-@RequestMapping(value = "/local")
-public class EnderecoController {
+@RequestMapping(value = "/cliente")
+public class ClienteController {
 
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    private ClienteRepository clienteRepository;
 
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> cadastrar(@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Cliente> cadastrar(@RequestBody Cliente cliente){
+        Cliente clienteSalvo = clienteRepository.save(cliente);
 
-        return new ResponseEntity(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity(clienteSalvo, HttpStatus.OK);
     }
 
     @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<List<Endereco>> getAll(){
+    public ResponseEntity<List<Cliente>> getAll(){
         try{
-            List<Endereco> list = (List<Endereco>)enderecoRepository.findAll();
+            List<Cliente> list = (List<Cliente>)clienteRepository.findAll();
 
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
@@ -44,15 +44,15 @@ public class EnderecoController {
     }
 
     @PutMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> atualizar (@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Cliente> atualizar (@RequestBody Cliente cliente){
+        Cliente clienteSalvo = clienteRepository.save(cliente);
 
-        return new ResponseEntity<Endereco>(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity<Cliente>(clienteSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public String apagar(@PathVariable(value = "id")Long id){
-        enderecoRepository.deleteById(id);
+        clienteRepository.deleteById(id);
         
         return "ok";
     }

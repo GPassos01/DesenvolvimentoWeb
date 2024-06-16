@@ -14,45 +14,45 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.evento.model.Endereco;
-import br.com.evento.repository.EnderecoRepository;
+import br.com.evento.model.Organizador;
+import br.com.evento.repository.OrganizadorRepository;
 
 @RestController
-@RequestMapping(value = "/local")
-public class EnderecoController {
+@RequestMapping(value = "/organizador")
+public class OrganizadorController {
 
     @Autowired
-    private EnderecoRepository enderecoRepository;
+    private OrganizadorRepository organizadorRepository;
 
     @PostMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> cadastrar(@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Organizador> cadastrar(@RequestBody Organizador organizador){
+        Organizador organizadorSalvo = organizadorRepository.save(organizador);
 
-        return new ResponseEntity(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity(organizadorSalvo, HttpStatus.OK);
     }
 
     @GetMapping(value = "/", produces = "application/json")
-    public ResponseEntity<List<Endereco>> getAll(){
+    public ResponseEntity<List<Organizador>> getAll(){
         try{
-            List<Endereco> list = (List<Endereco>)enderecoRepository.findAll();
+            List<Organizador> list = (List<Organizador>)organizadorRepository.findAll();
 
             return new ResponseEntity<>(list, HttpStatus.OK);
         }
         catch(Exception ex){
-            return new ResponseEntity("No such endereco", HttpStatus.NOT_FOUND);
+            return new ResponseEntity("No such organizador", HttpStatus.NOT_FOUND);
         }
     }
 
     @PutMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Endereco> atualizar (@RequestBody Endereco endereco){
-        Endereco enderecoSalvo = enderecoRepository.save(endereco);
+    public ResponseEntity<Organizador> atualizar (@RequestBody Organizador organizador){
+        Organizador organizadorSalvo = organizadorRepository.save(organizador);
 
-        return new ResponseEntity<Endereco>(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity<Organizador>(organizadorSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
     public String apagar(@PathVariable(value = "id")Long id){
-        enderecoRepository.deleteById(id);
+        organizadorRepository.deleteById(id);
         
         return "ok";
     }
