@@ -10,13 +10,20 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.CascadeType;
+import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "Usuario_type")
 public class Usuario implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,9 +33,10 @@ public class Usuario implements UserDetails{
     private String senha;
     private String nome;
     private UserRole role;
-
-    @OneToMany(mappedBy = "usuario", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Telefone> telefones = new ArrayList<Telefone>();
+    private String telefone;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "endereco_id", referencedColumnName = "id")
+    private Endereco endereco;
     
     public Usuario(String login, String senha, UserRole role){
         this.login = login;
@@ -47,11 +55,17 @@ public class Usuario implements UserDetails{
         
     }
 
-    public List<Telefone> getTelefones() {
-        return telefones;
+    public String getTelefone() {
+        return telefone;
     }
-    public void setTelefones(List<Telefone> telefones) {
-        this.telefones = telefones;
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+    public Endereco getEndereco() {
+        return endereco;
+    }
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
     }
     public Long getId() {
         return id;
@@ -76,6 +90,12 @@ public class Usuario implements UserDetails{
     }
     public void setNome(String nome) {
         this.nome = nome;
+    }
+    public UserRole getRole() {
+        return role;
+    }
+    public void setRole(UserRole role) {
+        this.role = role;
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -2,7 +2,8 @@ package br.com.evento.model;
 
 public enum UserRole {
     ADMIN("admin"),
-    USER("user");
+    CLIENTE("cliente"),
+    ORGANIZADOR("organizador");
 
     private String role;
 

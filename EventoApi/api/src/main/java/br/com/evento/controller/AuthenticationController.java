@@ -6,14 +6,18 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.evento.model.AuthenticationDTO;
+import br.com.evento.model.Cliente;
 import br.com.evento.model.LoginResponseDTO;
+import br.com.evento.model.Organizador;
 import br.com.evento.model.RegisterDTO;
+import br.com.evento.model.UserRole;
 import br.com.evento.model.Usuario;
 import br.com.evento.repository.UsuarioRepository;
 import br.com.evento.security.TokenService;
@@ -21,6 +25,7 @@ import jakarta.validation.Valid;
 
 @RestController
 @RequestMapping("auth")
+@CrossOrigin
 public class AuthenticationController {
 
     @Autowired
@@ -52,12 +57,36 @@ public class AuthenticationController {
         if (this.usuarioRepository.findByLogin(data.login()) != null)
             return ResponseEntity.badRequest().build();
 
-        String encryptedPassword = new BCryptPasswordEncoder().encode(data.password());
+        String encryptedPassword = new BCryptPasswordEncoder().encode(data.senha());
         System.out.println(data.login());
         System.out.println(encryptedPassword);
         System.out.println(data.role());
-
-        Usuario newUser = new Usuario(data.login(), encryptedPassword, data.role());
+        Usuario newUser;
+        if (data.role() == UserRole.ORGANIZADOR){
+            newUser = new Organizador(data.login(), 
+                                    encryptedPassword,
+                                    data.nome(),
+                                    data.role(),
+                                    data.endereco(),
+                                    data.telefone(),
+                                    data.cnpj());
+        }
+        else if (data.role() == UserRole.CLIENTE){
+            newUser = new Cliente(data.login(), 
+                                    encryptedPassword,
+                                    data.nome(),
+                                    data.role(),
+                                    data.endereco(),
+                                    data.telefone(),
+                                    data.cpf(),
+                                    data.data_nascimento());
+        }
+        else{
+            newUser = 
+                    new Usuario(data.login(), 
+                                encryptedPassword,
+                                data.role());
+        }
 
         this.usuarioRepository.save(newUser);
 
