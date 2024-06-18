@@ -30,7 +30,10 @@ public class Cliente extends Usuario {
         this.cpf = cpf;
         this.data_nascimento = data;
     }
+    public Cliente(){
 
+    }
+    
     public String getCpf() {
         return cpf;
     }

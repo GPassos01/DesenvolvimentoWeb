@@ -13,7 +13,7 @@ import jakarta.persistence.OneToMany;
 @DiscriminatorValue("Organizador")
 public class Organizador extends Usuario{
     private String cnpj;
-
+    
     public Organizador(String login, String senha, String nome, UserRole role, Endereco endereco, String telefone, String cnpj){
         super();
         setLogin(login);
@@ -25,6 +25,10 @@ public class Organizador extends Usuario{
         this.cnpj = cnpj;
     }
 
+    public Organizador(){
+
+    }
+    
     @OneToMany(mappedBy = "organizador", cascade = CascadeType.ALL)
     private List<Evento> eventos = new ArrayList<Evento>();
 
@@ -35,4 +39,5 @@ public class Organizador extends Usuario{
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
+
 }

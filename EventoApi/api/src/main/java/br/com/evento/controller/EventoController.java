@@ -1,6 +1,7 @@
 package br.com.evento.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -39,6 +40,18 @@ public class EventoController {
             List<Evento> list = (List<Evento>)eventoRepository.findAll();
 
             return new ResponseEntity<>(list, HttpStatus.OK);
+        }
+        catch(Exception ex){
+            return new ResponseEntity("No such evento", HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Evento> getById(@PathVariable(value = "id")long id){
+        try{
+            Optional <Evento> list = eventoRepository.findById(id);
+
+            return new ResponseEntity<Evento>(list.get(), HttpStatus.OK);
         }
         catch(Exception ex){
             return new ResponseEntity("No such evento", HttpStatus.NOT_FOUND);
