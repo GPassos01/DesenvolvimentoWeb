@@ -58,11 +58,11 @@ public class EventoController {
         }
     }
 
-    @PutMapping(value = "/", produces = "application/json")
-    public ResponseEntity<Evento> atualizar (@RequestBody Evento endereco){
-        Evento enderecoSalvo = eventoRepository.save(endereco);
+    @PutMapping(value = "/{id}", produces = "application/json")
+    public ResponseEntity<Evento> atualizar(@RequestBody Evento evento){
+        Evento eventoSalvo = eventoRepository.save(evento);
 
-        return new ResponseEntity<Evento>(enderecoSalvo, HttpStatus.OK);
+        return new ResponseEntity(eventoSalvo, HttpStatus.OK);
     }
 
     @DeleteMapping(value = "/{id}", produces = "application/json")
